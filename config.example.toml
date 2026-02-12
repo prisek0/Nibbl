@@ -1,0 +1,62 @@
+# FoodAgend Configuration
+# Copy this to config.toml and fill in your details.
+# Secrets (API keys, passwords) are loaded from environment variables.
+
+[agent]
+poll_interval_seconds = 5       # How often to check for new iMessages
+preference_timeout_hours = 4    # Max wait for family preference responses
+pantry_timeout_hours = 2        # Max wait for pantry check response
+plan_days = 4                   # Number of days to plan (3-5)
+language = "nl"                 # Default language: "nl" or "en"
+
+[family]
+# Add each family member. imessage_id is their phone number or Apple ID email.
+[[family.members]]
+name = "Parent1"
+imessage_id = "+31612345678"
+role = "parent"
+
+[[family.members]]
+name = "Parent2"
+imessage_id = "+31687654321"
+role = "parent"
+
+[[family.members]]
+name = "Kind1"
+imessage_id = "+31611111111"
+role = "child"
+
+# [[family.members]]
+# name = "Kind2"
+# imessage_id = "+31622222222"
+# role = "child"
+
+[imessage]
+chat_db_path = "~/Library/Messages/chat.db"
+# Your own phone number or Apple ID — needed so the agent recognizes
+# messages YOU send from this Mac (they appear as is_from_me in chat.db)
+self_id = "+31612345678"
+# Optional: group chat identifier for family group chat
+# group_chat_name = ""
+
+[claude]
+# Models used for different tasks (override if needed)
+model_planning = "claude-sonnet-4-20250514"
+model_extraction = "claude-haiku-4-5-20251001"
+model_conversation = "claude-sonnet-4-20250514"
+
+[picnic]
+country_code = "NL"   # NL, DE, or BE
+
+[schedule]
+enabled = true
+day_of_week = "sun"   # mon, tue, wed, thu, fri, sat, sun
+hour = 10
+minute = 0
+
+[database]
+path = "data/foodagend.db"
+
+[logging]
+level = "INFO"
+file = "logs/foodagend.log"

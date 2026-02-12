@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+dist/
+build/
+.env
+config.toml
+config.test.toml
+data/
+logs/
+debug.log
+.ruff_cache/
+.pytest_cache/
+picnic-api/
+.claude/
