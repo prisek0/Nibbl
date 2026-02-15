@@ -1,4 +1,4 @@
-"""Configuration loading for FoodAgend."""
+"""Configuration loading for Nibbl."""
 
 from __future__ import annotations
 
@@ -51,17 +51,17 @@ class ScheduleConfig(BaseModel):
 
 
 class DatabaseConfig(BaseModel):
-    path: str = "data/foodagend.db"
+    path: str = "data/nibbl.db"
 
 
 class ExportConfig(BaseModel):
     enabled: bool = True
-    path: str = "~/FoodAgend"
+    path: str = "~/Nibbl"
 
 
 class LoggingConfig(BaseModel):
     level: str = "INFO"
-    file: str = "logs/foodagend.log"
+    file: str = "logs/nibbl.log"
 
 
 def _load_dotenv(env_path: Path) -> None:
@@ -101,7 +101,7 @@ class Config(BaseModel):
 
     @classmethod
     def load(cls, config_path: str | None = None) -> Config:
-        path = Path(config_path or os.environ.get("FOODAGEND_CONFIG", "config.toml"))
+        path = Path(config_path or os.environ.get("NIBBL_CONFIG", "config.toml"))
         if not path.exists():
             raise FileNotFoundError(f"Config file not found: {path}")
 

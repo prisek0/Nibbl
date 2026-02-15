@@ -1,4 +1,4 @@
-# FoodAgend Configuration
+# Nibbl Configuration
 # Copy this to config.toml and fill in your details.
 # Secrets (API keys, passwords) are loaded from environment variables.
 
@@ -55,8 +55,8 @@ hour = 10
 minute = 0
 
 [database]
-path = "data/foodagend.db"
+path = "data/nibbl.db"
 
 [logging]
 level = "INFO"
-file = "logs/foodagend.log"
+file = "logs/nibbl.log"

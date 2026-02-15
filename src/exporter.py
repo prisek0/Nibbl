@@ -18,7 +18,7 @@ DAYS = {
 }
 
 INDEX_CONTENT = """\
-# FoodAgend
+# Nibbl
 
 ## Recent Meal Plans
 

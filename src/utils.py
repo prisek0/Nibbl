@@ -1,4 +1,4 @@
-"""Shared utilities for FoodAgend."""
+"""Shared utilities for Nibbl."""
 
 from __future__ import annotations
 

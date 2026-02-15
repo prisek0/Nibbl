@@ -1,4 +1,4 @@
-"""SQLite database for FoodAgend persistence."""
+"""SQLite database for Nibbl persistence."""
 
 from __future__ import annotations
 

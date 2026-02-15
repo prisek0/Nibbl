@@ -1,4 +1,4 @@
-"""Data models for FoodAgend."""
+"""Data models for Nibbl."""
 
 from __future__ import annotations
 

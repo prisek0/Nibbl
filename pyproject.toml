@@ -1,5 +1,5 @@
 [project]
-name = "foodagend"
+name = "nibbl"
 version = "0.1.0"
 description = "AI-powered family dinner planning agent with iMessage and Picnic integration"
 requires-python = ">=3.11"
@@ -18,7 +18,7 @@ dev = [
 ]
 
 [project.scripts]
-foodagend = "src.main:main"
+nibbl = "src.main:main"
 
 [tool.ruff]
 target-version = "py311"

@@ -1,4 +1,4 @@
-# FoodAgend
+# Nibbl
 
 AI-powered family dinner planning agent for macOS. Communicates with family members via iMessage, generates weekly meal plans using Claude, and fills your [Picnic](https://picnic.app/) shopping cart with the needed ingredients.
 
@@ -29,8 +29,8 @@ The agent runs as a persistent background process on macOS, polling for new iMes
 ### 1. Clone and create virtualenv
 
 ```bash
-git clone <repo-url> FoodAgend
-cd FoodAgend
+git clone <repo-url> Nibbl
+cd Nibbl
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
@@ -119,23 +119,23 @@ python -m src.main
 python -m src.main /path/to/config.toml
 ```
 
-The agent logs to both the console and `logs/foodagend.log`.
+The agent logs to both the console and `logs/nibbl.log`.
 
 Stop it with `Ctrl+C`.
 
 ## Running as a background service
 
-To have FoodAgend start automatically on login and restart on crashes:
+To have Nibbl start automatically on login and restart on crashes:
 
 ```bash
 bash scripts/install_launchd.sh
-launchctl load ~/Library/LaunchAgents/com.foodagend.agent.plist
+launchctl load ~/Library/LaunchAgents/com.nibbl.agent.plist
 ```
 
 To stop and uninstall:
 
 ```bash
-launchctl unload ~/Library/LaunchAgents/com.foodagend.agent.plist
+launchctl unload ~/Library/LaunchAgents/com.nibbl.agent.plist
 bash scripts/uninstall_launchd.sh
 ```
 
@@ -169,16 +169,16 @@ The agent learns preferences over time. Things like "I don't like fish" or "keep
 
 ### Recipe database
 
-When a meal plan is approved, each recipe is exported as a markdown file to the configured export folder (default: `~/FoodAgend/recipes/`). A meal plan summary with Obsidian wikilinks is saved to `~/FoodAgend/meal-plans/`. Existing recipes are never overwritten, so the database grows over time.
+When a meal plan is approved, each recipe is exported as a markdown file to the configured export folder (default: `~/Nibbl/recipes/`). A meal plan summary with Obsidian wikilinks is saved to `~/Nibbl/meal-plans/`. Existing recipes are never overwritten, so the database grows over time.
 
-To use with Obsidian, open `~/FoodAgend` as a vault. An auto-generated `index.md` includes Dataview queries for browsing by cuisine, cook time, and recent plans.
+To use with Obsidian, open `~/Nibbl` as a vault. An auto-generated `index.md` includes Dataview queries for browsing by cuisine, cook time, and recent plans.
 
 Configure the export path in `config.toml`:
 
 ```toml
 [export]
 enabled = true
-path = "~/FoodAgend"   # point this to your Obsidian vault
+path = "~/Nibbl"   # point this to your Obsidian vault
 ```
 
 ## Fresh start
@@ -186,7 +186,7 @@ path = "~/FoodAgend"   # point this to your Obsidian vault
 To reset all data (preferences, history, sessions):
 
 ```bash
-rm data/foodagend.db*
+rm data/nibbl.db*
 ```
 
 The database is recreated automatically on next startup.

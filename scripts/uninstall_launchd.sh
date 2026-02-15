@@ -1,9 +1,9 @@
 #!/bin/bash
-# Uninstall the FoodAgend LaunchAgent.
+# Uninstall the Nibbl LaunchAgent.
 
 set -euo pipefail
 
-PLIST_NAME="com.foodagend.agent"
+PLIST_NAME="com.nibbl.agent"
 PLIST_PATH="$HOME/Library/LaunchAgents/${PLIST_NAME}.plist"
 
 if [ -f "$PLIST_PATH" ]; then

@@ -1,4 +1,4 @@
-"""FoodAgend — AI-powered family dinner planning agent.
+"""Nibbl — AI-powered family dinner planning agent.
 
 Entry point: loads config, wires up all components, and runs the main polling loop.
 """
@@ -25,7 +25,7 @@ from .planner.preference_engine import PreferenceEngine
 from .scheduler import MealPlanScheduler
 from .models import FamilyMember, MemberRole
 
-logger = logging.getLogger("foodagend")
+logger = logging.getLogger("nibbl")
 
 
 def _handle_signal(sig: signal.Signals, shutdown_event: asyncio.Event) -> None:
@@ -159,7 +159,7 @@ async def run(config: Config) -> None:
     for sig in (signal.SIGINT, signal.SIGTERM):
         loop.add_signal_handler(sig, lambda s=sig: _handle_signal(s, shutdown_event))
 
-    logger.info("FoodAgend is running. Polling every %ds. Press Ctrl+C to stop.",
+    logger.info("Nibbl is running. Polling every %ds. Press Ctrl+C to stop.",
                 config.agent.poll_interval_seconds)
 
     try:
@@ -191,7 +191,7 @@ async def run(config: Config) -> None:
                 pass  # Normal — poll interval elapsed, loop again
     finally:
         scheduler.stop()
-        logger.info("FoodAgend stopped.")
+        logger.info("Nibbl stopped.")
 
 
 def main() -> None:
@@ -202,7 +202,7 @@ def main() -> None:
         config = Config.load(config_path)
     except FileNotFoundError as e:
         print(f"Error: {e}")
-        print("Create a config.toml or set FOODAGEND_CONFIG environment variable.")
+        print("Create a config.toml or set NIBBL_CONFIG environment variable.")
         sys.exit(1)
 
     if not config.anthropic_api_key:

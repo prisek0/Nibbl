@@ -1,12 +1,12 @@
 #!/bin/bash
-# Install FoodAgend as a macOS LaunchAgent (auto-start on login, restart on crash).
+# Install Nibbl as a macOS LaunchAgent (auto-start on login, restart on crash).
 #
 # Usage: bash scripts/install_launchd.sh
 
 set -euo pipefail
 
 PROJECT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-PLIST_NAME="com.foodagend.agent"
+PLIST_NAME="com.nibbl.agent"
 PLIST_PATH="$HOME/Library/LaunchAgents/${PLIST_NAME}.plist"
 VENV_PYTHON="${PROJECT_DIR}/.venv/bin/python"
 
@@ -47,7 +47,7 @@ cat > "$PLIST_PATH" <<PLIST
     <string>${PROJECT_DIR}/logs/stderr.log</string>
     <key>EnvironmentVariables</key>
     <dict>
-        <key>FOODAGEND_CONFIG</key>
+        <key>NIBBL_CONFIG</key>
         <string>${PROJECT_DIR}/config.toml</string>
     </dict>
 </dict>

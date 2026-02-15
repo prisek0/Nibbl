@@ -2,7 +2,7 @@
 
 ## Overview
 
-FoodAgend is a single long-running Python `asyncio` process with six subsystems coordinated by a central state machine. There is no web framework, no ORM, and no external message queue — just a polling loop, SQLite, and AppleScript.
+Nibbl is a single long-running Python `asyncio` process with six subsystems coordinated by a central state machine. There is no web framework, no ORM, and no external message queue — just a polling loop, SQLite, and AppleScript.
 
 ```
 Scheduler (APScheduler)  -->  Orchestrator (state machine)
@@ -133,7 +133,7 @@ Matched ingredients are marked as `already_available` and skipped during cart fi
 
 ## Recipe export
 
-When a meal plan is approved, the exporter writes Obsidian-compatible markdown files to a configurable folder (default: `~/FoodAgend/`).
+When a meal plan is approved, the exporter writes Obsidian-compatible markdown files to a configurable folder (default: `~/Nibbl/`).
 
 ### What gets exported
 
@@ -178,7 +178,7 @@ Configuration is loaded from TOML (`config.toml`) with Pydantic validation. Secr
 
 The config is resolved in this order:
 1. Path passed as CLI argument
-2. `FOODAGEND_CONFIG` environment variable
+2. `NIBBL_CONFIG` environment variable
 3. `config.toml` in the current directory
 
 ## Scheduling
