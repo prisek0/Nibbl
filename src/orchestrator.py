@@ -24,6 +24,7 @@ from .planner.formatter import (
     format_meal_plan,
     format_pantry_check,
 )
+from .exporter import MarkdownExporter
 from .planner.meal_planner import MealPlanner
 from .planner.pantry_matcher import match_pantry_items
 from .planner.preference_engine import PreferenceEngine
@@ -124,6 +125,7 @@ class Orchestrator:
         self.preference_engine = preference_engine
         self.conversation = conversation
         self.cart_filler = cart_filler
+        self.exporter = MarkdownExporter(config.export, lang=config.agent.language)
         self.session: MealPlanSession | None = None
         self._lang = config.agent.language  # "nl" or "en"
 
@@ -323,10 +325,18 @@ class Orchestrator:
             )
 
     async def _enter_compiling_ingredients(self) -> None:
-        """Transition to COMPILING_INGREDIENTS: mark recipes approved, list ingredients."""
+        """Transition to COMPILING_INGREDIENTS: mark recipes approved, export, list ingredients."""
         self.session.transition_to(SessionState.COMPILING_INGREDIENTS)
         self.db.mark_recipes_approved(self.session.id)
         self.db.save_session(self.session)
+
+        # Export approved recipes and meal plan to markdown
+        if self.config.export.enabled:
+            recipes = self.db.get_recipes_for_session(self.session.id)
+            try:
+                self.exporter.export_session(recipes, self.session)
+            except Exception as e:
+                logger.error("Failed to export markdown: %s", e, exc_info=True)
 
         # Move to pantry check
         await self._enter_checking_pantry()

@@ -54,6 +54,11 @@ class DatabaseConfig(BaseModel):
     path: str = "data/foodagend.db"
 
 
+class ExportConfig(BaseModel):
+    enabled: bool = True
+    path: str = "~/FoodAgend"
+
+
 class LoggingConfig(BaseModel):
     level: str = "INFO"
     file: str = "logs/foodagend.log"
@@ -86,6 +91,7 @@ class Config(BaseModel):
     picnic: PicnicConfig = Field(default_factory=PicnicConfig)
     schedule: ScheduleConfig = Field(default_factory=ScheduleConfig)
     database: DatabaseConfig = Field(default_factory=DatabaseConfig)
+    export: ExportConfig = Field(default_factory=ExportConfig)
     logging: LoggingConfig = Field(default_factory=LoggingConfig)
 
     # Secrets loaded from environment variables

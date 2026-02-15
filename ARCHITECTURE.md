@@ -131,6 +131,28 @@ When the parent says what they already have at home ("I got rice, olive oil, and
 
 Matched ingredients are marked as `already_available` and skipped during cart filling.
 
+## Recipe export
+
+When a meal plan is approved, the exporter writes Obsidian-compatible markdown files to a configurable folder (default: `~/FoodAgend/`).
+
+### What gets exported
+
+- **Recipe files** (`recipes/{Name}.md`) — YAML frontmatter with cuisine, tags, times, dates + ingredient list in instruction order + cooking instructions. If a file with the same name already exists, it's skipped (building a database, not overwriting).
+- **Meal plan files** (`meal-plans/{date} - Meal Plan.md`) — overview table and detail section with `[[wikilinks]]` to recipe files. Always written (latest version of a plan for that date wins).
+- **Vault index** (`index.md`) — created once with Dataview queries for browsing by cuisine, cook time, and recent plans.
+
+### When it runs
+
+Export is triggered in `_enter_compiling_ingredients()` — the moment the parent approves the plan, before pantry check and cart fill. This means:
+
+- Only approved plans are exported (drafts and rejected plans are not)
+- Export doesn't wait for the slower Picnic cart fill
+- Export failures are caught and logged but never block the workflow
+
+### Obsidian integration
+
+The export folder is designed to work as an Obsidian vault. Wikilinks between meal plans and recipes resolve automatically because recipes are in a flat folder. Frontmatter fields (cuisine, tags, prep_time, total_time) are all Dataview-queryable. Cuisine is included in both the `cuisine` field and the `tags` array so it appears in Obsidian's tag pane.
+
 ## Database
 
 SQLite with WAL mode and foreign keys enabled. No ORM — direct `sqlite3` with parameterized queries.
@@ -174,6 +196,7 @@ The agent supports English and Dutch, configured via `agent.language` in config.
 - **Graceful shutdown**: SIGINT/SIGTERM are caught and trigger a clean shutdown of the scheduler and polling loop
 - **LaunchAgent**: The `install_launchd.sh` script sets `KeepAlive=true` so macOS restarts the agent after crashes
 - **Cart fill errors**: Individual product failures don't abort the entire cart fill — errors are collected and reported to the parent
+- **Export errors**: Markdown export failures are caught and logged, never blocking the meal planning workflow
 
 ## Dependencies
 

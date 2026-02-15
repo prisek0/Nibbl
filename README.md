@@ -11,6 +11,8 @@ AI-powered family dinner planning agent for macOS. Communicates with family memb
 5. The agent asks what pantry staples are already at home
 6. Remaining ingredients are automatically searched and added to the Picnic cart
 
+Every approved recipe is saved as a structured markdown file, building a recipe database over time. Meal plans are logged with links to individual recipes — ready to browse in [Obsidian](https://obsidian.md/) or any markdown tool.
+
 The agent runs as a persistent background process on macOS, polling for new iMessages every few seconds.
 
 ## Requirements
@@ -165,6 +167,20 @@ Send "stop" or "cancel" at any point to abort the session.
 
 The agent learns preferences over time. Things like "I don't like fish" or "keep it vegetarian" are stored with confidence scores and influence future plans. Preferences are extracted from every message, even outside active sessions.
 
+### Recipe database
+
+When a meal plan is approved, each recipe is exported as a markdown file to the configured export folder (default: `~/FoodAgend/recipes/`). A meal plan summary with Obsidian wikilinks is saved to `~/FoodAgend/meal-plans/`. Existing recipes are never overwritten, so the database grows over time.
+
+To use with Obsidian, open `~/FoodAgend` as a vault. An auto-generated `index.md` includes Dataview queries for browsing by cuisine, cook time, and recent plans.
+
+Configure the export path in `config.toml`:
+
+```toml
+[export]
+enabled = true
+path = "~/FoodAgend"   # point this to your Obsidian vault
+```
+
 ## Fresh start
 
 To reset all data (preferences, history, sessions):
@@ -184,6 +200,7 @@ src/
   models.py                  # Dataclasses and enums
   database.py                # SQLite persistence
   orchestrator.py            # Central state machine
+  exporter.py                # Markdown export for Obsidian
   utils.py                   # JSON parsing helpers
   imessage/
     reader.py                # Poll chat.db for new messages
